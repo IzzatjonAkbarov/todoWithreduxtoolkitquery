@@ -97,37 +97,40 @@ const App = () => {
       ) : (
         <div className="space-y-4">
           <Progress percent={Math.round(progress)} className="mb-4" />
-          {data?.map((item) => (
+          {data?.map((item, idx) => (
             <div
               key={item.id}
               className="flex justify-between items-center relative p-3 border-b">
               <div className="flex items-center gap-2">
-                <Checkbox
-                  checked={item?.isChecked}
-                  onChange={async (e) => {
-                    await editTheDataOnTHEApi({
-                      id: item.id,
-                      text: item.text,
-                      isChecked: e.target.checked,
-                      date: item.date,
-                    });
-                  }}
-                />
-                <span
-                  className={
-                    item?.isChecked ? "line-through text-gray-500" : ""
-                  }>
-                  {editID === item?.id ? (
-                    <input
-                      type="text"
-                      defaultValue={item?.text}
-                      className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      onChange={(e) => setEditTask(e.target.value)}
-                    />
-                  ) : (
-                    item?.text
-                  )}
-                </span>
+                <p className="pr-3"> {idx + 1}.</p>
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    checked={item?.isChecked}
+                    onChange={async (e) => {
+                      await editTheDataOnTHEApi({
+                        id: item.id,
+                        text: item.text,
+                        isChecked: e.target.checked,
+                        date: item.date,
+                      });
+                    }}
+                  />
+                  <span
+                    className={
+                      item?.isChecked ? "line-through text-gray-500" : ""
+                    }>
+                    {editID === item?.id ? (
+                      <input
+                        type="text"
+                        defaultValue={item?.text}
+                        className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        onChange={(e) => setEditTask(e.target.value)}
+                      />
+                    ) : (
+                      item?.text
+                    )}
+                  </span>
+                </div>
               </div>
 
               <div className="flex gap-2 relative">
